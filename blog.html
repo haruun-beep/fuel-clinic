@@ -1,0 +1,464 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blog | FUEL Pain &amp; Injury Recovery Clinic Edmonton | Health &amp; Recovery Tips</title>
+  <meta name="description" content="Health tips, recovery advice, and clinic news from FUEL Pain &amp; Injury Recovery Clinic Edmonton.">
+  <meta name="keywords" content="health blog Edmonton, pain recovery tips, massage therapy Edmonton, chiropractic advice, injury prevention Edmonton, FUEL clinic blog">
+  <meta property="og:title" content="Blog | FUEL Pain &amp; Injury Recovery Clinic Edmonton">
+  <meta property="og:description" content="Health tips, recovery advice, and clinic news from FUEL Pain &amp; Injury Recovery Clinic Edmonton.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.fuelclinicedmonton.com/blog.html">
+  <link rel="canonical" href="https://www.fuelclinicedmonton.com/blog.html">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    /* ── Blog page extras ── */
+    .blog-filter-bar {
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+      flex-wrap: wrap;
+      margin-bottom: var(--sp-2xl);
+    }
+    .filter-btn {
+      padding: .5rem 1.1rem;
+      border-radius: 100px;
+      font-family: var(--font-h);
+      font-size: .68rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .1em;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      background: transparent;
+      cursor: pointer;
+      transition: var(--ease);
+    }
+    .filter-btn:hover {
+      border-color: var(--green);
+      color: var(--green);
+    }
+    .filter-btn.active {
+      background: var(--green);
+      border-color: var(--green);
+      color: var(--black);
+    }
+
+    .blog-card__read-time {
+      display: inline-flex;
+      align-items: center;
+      gap: .3rem;
+    }
+    .blog-card__read-time::before {
+      content: '·';
+    }
+
+    /* Featured post */
+    .blog-featured {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr;
+      gap: 0;
+      background: var(--dark);
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      overflow: hidden;
+      margin-bottom: var(--sp-2xl);
+      transition: var(--ease);
+    }
+    .blog-featured:hover {
+      border-color: rgba(22,199,90,.4);
+      box-shadow: var(--sh-lg);
+      transform: translateY(-4px);
+    }
+    .blog-featured__img-wrap {
+      overflow: hidden;
+      min-height: 320px;
+    }
+    .blog-featured__img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      transition: transform .6s cubic-bezier(.4,0,.2,1);
+    }
+    .blog-featured:hover .blog-featured__img {
+      transform: scale(1.04);
+    }
+    .blog-featured__body {
+      padding: var(--sp-xl) var(--sp-lg);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .blog-featured__label {
+      font-size: .62rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .14em;
+      color: var(--green);
+      background: rgba(22,199,90,.1);
+      border: 1px solid rgba(22,199,90,.25);
+      border-radius: 100px;
+      padding: .3rem .75rem;
+      display: inline-block;
+      margin-bottom: var(--sp-md);
+      width: fit-content;
+    }
+    .blog-featured__title {
+      font-family: var(--font-h);
+      font-size: clamp(1.2rem, 2.5vw, 1.65rem);
+      font-weight: 700;
+      line-height: 1.3;
+      margin-bottom: var(--sp-sm);
+      transition: var(--ease);
+    }
+    .blog-featured:hover .blog-featured__title {
+      color: var(--green);
+    }
+    .blog-featured__meta {
+      font-size: .75rem;
+      color: var(--muted);
+      margin-bottom: var(--sp-md);
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+    }
+    .blog-featured__excerpt {
+      font-size: .9rem;
+      color: rgba(255,255,255,.62);
+      line-height: 1.75;
+      margin-bottom: var(--sp-md);
+    }
+
+    .section-divider {
+      display: flex;
+      align-items: center;
+      gap: var(--sp-md);
+      margin-bottom: var(--sp-lg);
+    }
+    .section-divider__line {
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+    .section-divider__label {
+      font-family: var(--font-h);
+      font-size: .68rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .14em;
+      color: var(--muted);
+      white-space: nowrap;
+    }
+
+    /* Newsletter strip */
+    .newsletter-strip {
+      background: linear-gradient(135deg, var(--dark-teal), #082828);
+      border: 1px solid rgba(22,199,90,.2);
+      border-radius: var(--r-lg);
+      padding: var(--sp-lg) var(--sp-xl);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--sp-lg);
+      flex-wrap: wrap;
+      margin-top: var(--sp-2xl);
+    }
+    .newsletter-strip__text h3 {
+      font-family: var(--font-h);
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin-bottom: .4rem;
+    }
+    .newsletter-strip__text p {
+      font-size: .875rem;
+      color: rgba(255,255,255,.58);
+    }
+    .newsletter-strip__form {
+      display: flex;
+      gap: .625rem;
+      flex-wrap: wrap;
+      flex: 1;
+      max-width: 440px;
+    }
+    .newsletter-strip__input {
+      flex: 1;
+      min-width: 220px;
+      padding: .8rem 1.1rem;
+      background: rgba(255,255,255,.07);
+      border: 1px solid rgba(255,255,255,.15);
+      border-radius: var(--r-sm);
+      color: var(--white);
+      font-family: var(--font-b);
+      font-size: .875rem;
+      outline: none;
+      transition: var(--ease);
+    }
+    .newsletter-strip__input::placeholder {
+      color: rgba(255,255,255,.32);
+    }
+    .newsletter-strip__input:focus {
+      border-color: var(--green);
+      background: rgba(22,199,90,.06);
+    }
+
+    @media (max-width: 768px) {
+      .blog-featured {
+        grid-template-columns: 1fr;
+      }
+      .blog-featured__img-wrap {
+        min-height: 220px;
+      }
+      .blog-featured__body {
+        padding: var(--sp-lg);
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════════════ NAV ═══════════════════════ -->
+<nav class="nav" id="nav">
+  <div class="nav__inner">
+    <a href="index.html" class="nav__logo"><img src="https://static.wixstatic.com/media/e4df87_2fe8096444784487b1d61cf59c92cf71~mv2.png/v1/fill/w_400,h_200,al_c,q_85,enc_avif,quality_auto/fuel_logo.png" alt="FUEL Pain &amp; Injury Recovery Clinic" width="200" height="101"></a>
+    <ul class="nav__menu">
+      <li class="nav__item"><a href="about.html" class="nav__link">About</a><div class="nav__dropdown"><a href="about.html" class="nav__dropdown-link">About FUEL</a><a href="team.html" class="nav__dropdown-link">Our Team</a><a href="careers.html" class="nav__dropdown-link">Careers</a></div></li>
+      <li class="nav__item"><a href="services.html" class="nav__link">Services</a><div class="nav__dropdown"><a href="services/manual-osteopathy-edmonton.html" class="nav__dropdown-link">Manual Osteopathy</a><a href="services/chiropractic-care.html" class="nav__dropdown-link">Chiropractic Care</a><a href="services/massage-therapy-downtown-edmonton.html" class="nav__dropdown-link">Massage Therapy</a><a href="services/chinese-medicine-acupuncture-edmonton.html" class="nav__dropdown-link">Acupuncture &amp; TCM</a><a href="services/cosmetic-acupuncture.html" class="nav__dropdown-link">Cosmetic Acupuncture</a><a href="services/psychology-services-edmonton.html" class="nav__dropdown-link">Psychology</a><a href="services/personal-training.html" class="nav__dropdown-link">Personal Training</a><a href="services/shockwave-therapy-edmonton.html" class="nav__dropdown-link">Shockwave &amp; Laser</a><a href="services/b-pulse-chair.html" class="nav__dropdown-link">Pelvic Floor (B-Pulse)</a><a href="services/mva.html" class="nav__dropdown-link">MVA Services</a></div></li>
+      <li class="nav__item"><a href="blog.html" class="nav__link">Blog</a></li>
+      <li class="nav__item"><a href="events.html" class="nav__link">Events</a></li>
+      <li class="nav__item"><a href="contact.html" class="nav__link">Contact</a></li>
+    </ul>
+    <a href="https://fuelclinic.janeapp.com/" target="_blank" rel="noopener" class="btn btn-primary nav__cta">Book an Appointment</a>
+    <button class="nav__hamburger" id="hamburger" aria-label="Open menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+<div class="nav__mobile-overlay" id="mobile-menu">
+  <a href="about.html" class="nav__mobile-link">About</a>
+  <a href="services.html" class="nav__mobile-link">Services</a>
+  <a href="blog.html" class="nav__mobile-link">Blog</a>
+  <a href="events.html" class="nav__mobile-link">Events</a>
+  <a href="contact.html" class="nav__mobile-link">Contact</a>
+  <div class="nav__mobile-cta"><a href="https://fuelclinic.janeapp.com/" target="_blank" rel="noopener" class="btn btn-primary" style="width:100%;justify-content:center">Book an Appointment</a></div>
+</div>
+
+<!-- ═══════════════════════ PAGE HERO ═══════════════════════ -->
+<section class="page-hero">
+  <div class="page-hero__bg"></div>
+  <div class="page-hero__overlay"></div>
+  <div class="page-hero__img" style="background-image:url('https://static.wixstatic.com/media/e4df87_1c20714c964f4059b61a3b48063d9933~mv2.png/v1/fill/w_1400,h_700,al_c,q_85,enc_avif,quality_auto/flame.png');background-size:contain;background-repeat:no-repeat;background-position:right center;opacity:.08"></div>
+  <div class="container">
+    <div class="page-hero__content">
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+        <a href="index.html">Home</a>
+        <span class="breadcrumb__sep">›</span>
+        <span>Blog</span>
+      </nav>
+      <div class="label-tag">Knowledge &amp; Recovery</div>
+      <h1>FUEL Blog —<br><span class="text-green">Health, Recovery &amp; Wellness</span></h1>
+      <p style="font-size:1.05rem;color:rgba(255,255,255,.65);max-width:560px;margin-top:1.25rem;line-height:1.8">Expert insights from our interdisciplinary team. Evidence-based advice to help you move better, feel better, and live better.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════ BLOG CONTENT ═══════════════════════ -->
+<section class="section bg-dark">
+  <div class="container">
+
+    <!-- Category Filter Bar -->
+    <div class="blog-filter-bar">
+      <button class="filter-btn active">All</button>
+      <button class="filter-btn">FUEL Your Body</button>
+      <button class="filter-btn">FUEL Your Mind</button>
+      <button class="filter-btn">FUEL Clinic</button>
+      <button class="filter-btn">Pain Management</button>
+    </div>
+
+    <!-- Featured Article -->
+    <a href="blog/psychology-sessions-cost.html" class="blog-featured">
+      <div class="blog-featured__img-wrap">
+        <img src="https://static.wixstatic.com/media/e4df87_1c20714c964f4059b61a3b48063d9933~mv2.png/v1/fill/w_600,h_400,al_c,q_85,enc_avif,quality_auto/flame.png" alt="How Much Do Psychology Counselling Sessions Cost?" class="blog-featured__img" loading="lazy">
+      </div>
+      <div class="blog-featured__body">
+        <span class="blog-featured__label">FUEL Your Mind</span>
+        <h2 class="blog-featured__title">How Much Do Psychology Counselling Sessions Cost?</h2>
+        <div class="blog-featured__meta">
+          <span>Jul 28, 2025</span>
+          <span>5 min read</span>
+        </div>
+        <p class="blog-featured__excerpt">Understanding the cost of therapy shouldn't be a barrier to getting help. We break down psychology session pricing in Edmonton, what insurance covers, and what to expect at FUEL.</p>
+        <span class="btn btn-outline-green btn-sm" style="width:fit-content">Read Article →</span>
+      </div>
+    </a>
+
+    <!-- All Articles Grid -->
+    <div class="section-divider">
+      <div class="section-divider__line"></div>
+      <div class="section-divider__label">All Articles</div>
+      <div class="section-divider__line"></div>
+    </div>
+
+    <div class="blog-grid">
+
+      <!-- 2 -->
+      <a href="blog/alberta-health-massage.html" class="blog-card">
+        <div class="blog-card__img-wrap">
+          <img src="https://static.wixstatic.com/media/e4df87_1c20714c964f4059b61a3b48063d9933~mv2.png/v1/fill/w_600,h_400,al_c,q_85,enc_avif,quality_auto/flame.png" alt="Does Alberta Health Care Cover Massage Therapy?" class="blog-card__img" loading="lazy">
+        </div>
+        <div class="blog-card__body">
+          <div class="blog-card__cat">FUEL Clinic</div>
+          <h3 class="blog-card__title">Does Alberta Health Care Cover Massage Therapy?</h3>
+          <div class="blog-card__meta">
+            <span>Jul 16, 2025</span>
+            <span class="blog-card__read-time">5 min read</span>
+          </div>
+        </div>
+      </a>
+
+      <!-- 3 -->
+      <a href="blog/daylight-savings-tips.html" class="blog-card">
+        <div class="blog-card__img-wrap">
+          <img src="https://static.wixstatic.com/media/e4df87_1c20714c964f4059b61a3b48063d9933~mv2.png/v1/fill/w_600,h_400,al_c,q_85,enc_avif,quality_auto/flame.png" alt="Spring Forward Like a Pro: 6 Tips for Daylight Savings" class="blog-card__img" loading="lazy">
+        </div>
+        <div class="blog-card__body">
+          <div class="blog-card__cat">FUEL Your Body</div>
+          <h3 class="blog-card__title">Spring Forward Like a Pro: 6 Tips for Daylight Savings</h3>
+          <div class="blog-card__meta">
+            <span>Mar 4, 2025</span>
+            <span class="blog-card__read-time">3 min read</span>
+          </div>
+        </div>
+      </a>
+
+      <!-- 4 -->
+      <a href="blog/physiotherapy-cost-alberta.html" class="blog-card">
+        <div class="blog-card__img-wrap">
+          <img src="https://static.wixstatic.com/media/e4df87_1c20714c964f4059b61a3b48063d9933~mv2.png/v1/fill/w_600,h_400,al_c,q_85,enc_avif,quality_auto/flame.png" alt="How Much Does Physiotherapy Cost in Alberta?" class="blog-card__img" loading="lazy">
+        </div>
+        <div class="blog-card__body">
+          <div class="blog-card__cat">FUEL Clinic</div>
+          <h3 class="blog-card__title">How Much Does Physiotherapy Cost in Alberta?</h3>
+          <div class="blog-card__meta">
+            <span>Feb 10, 2025</span>
+            <span class="blog-card__read-time">4 min read</span>
+          </div>
+        </div>
+      </a>
+
+      <!-- 5 -->
+      <a href="blog/backpack-weight.html" class="blog-card">
+        <div class="blog-card__img-wrap">
+          <img src="https://static.wixstatic.com/media/e4df87_1c20714c964f4059b61a3b48063d9933~mv2.png/v1/fill/w_600,h_400,al_c,q_85,enc_avif,quality_auto/flame.png" alt="Back to School: Backpack Weight 101" class="blog-card__img" loading="lazy">
+        </div>
+        <div class="blog-card__body">
+          <div class="blog-card__cat">FUEL Your Body</div>
+          <h3 class="blog-card__title">Back to School: Backpack Weight 101</h3>
+          <div class="blog-card__meta">
+            <span>Sep 6, 2024</span>
+            <span class="blog-card__read-time">2 min read</span>
+          </div>
+        </div>
+      </a>
+
+      <!-- 6 -->
+      <a href="blog/about-the-fuel-flame.html" class="blog-card">
+        <div class="blog-card__img-wrap">
+          <img src="https://static.wixstatic.com/media/e4df87_1c20714c964f4059b61a3b48063d9933~mv2.png/v1/fill/w_600,h_400,al_c,q_85,enc_avif,quality_auto/flame.png" alt="About the FUEL Flame" class="blog-card__img" loading="lazy">
+        </div>
+        <div class="blog-card__body">
+          <div class="blog-card__cat">FUEL Clinic</div>
+          <h3 class="blog-card__title">About the FUEL Flame</h3>
+          <div class="blog-card__meta">
+            <span>Apr 24, 2024</span>
+            <span class="blog-card__read-time">1 min read</span>
+          </div>
+        </div>
+      </a>
+
+      <!-- 7 -->
+      <a href="blog/about-fuel-clinic.html" class="blog-card">
+        <div class="blog-card__img-wrap">
+          <img src="https://static.wixstatic.com/media/e4df87_1c20714c964f4059b61a3b48063d9933~mv2.png/v1/fill/w_600,h_400,al_c,q_85,enc_avif,quality_auto/flame.png" alt="About FUEL Clinic Edmonton" class="blog-card__img" loading="lazy">
+        </div>
+        <div class="blog-card__body">
+          <div class="blog-card__cat">FUEL Clinic</div>
+          <h3 class="blog-card__title">About FUEL Clinic Edmonton</h3>
+          <div class="blog-card__meta">
+            <span>Apr 24, 2024</span>
+            <span class="blog-card__read-time">2 min read</span>
+          </div>
+        </div>
+      </a>
+
+      <!-- 8 -->
+      <a href="blog/benefits-massage-therapy.html" class="blog-card">
+        <div class="blog-card__img-wrap">
+          <img src="https://static.wixstatic.com/media/e4df87_1c20714c964f4059b61a3b48063d9933~mv2.png/v1/fill/w_600,h_400,al_c,q_85,enc_avif,quality_auto/flame.png" alt="The Healing Touch: Benefits of Massage Therapy" class="blog-card__img" loading="lazy">
+        </div>
+        <div class="blog-card__body">
+          <div class="blog-card__cat">FUEL Your Body</div>
+          <h3 class="blog-card__title">The Healing Touch: Benefits of Massage Therapy</h3>
+          <div class="blog-card__meta">
+            <span>Apr 18, 2024</span>
+            <span class="blog-card__read-time">2 min read</span>
+          </div>
+        </div>
+      </a>
+
+    </div>
+    <!-- end .blog-grid -->
+
+    <!-- Newsletter Strip -->
+    <div class="newsletter-strip">
+      <div class="newsletter-strip__text">
+        <h3>Stay in the Loop</h3>
+        <p>Get new articles, health tips &amp; clinic news — no spam, ever.</p>
+      </div>
+      <div class="newsletter-strip__form">
+        <input type="email" class="newsletter-strip__input" placeholder="Your email address">
+        <button class="btn btn-primary">Subscribe</button>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════════════════ CTA BANNER ═══════════════════════ -->
+<section class="cta-banner">
+  <div class="container">
+    <div class="cta-banner__inner">
+      <div class="label-tag" style="justify-content:center">Ready to Feel Better?</div>
+      <h2 class="cta-banner__title">Book Your Appointment Today</h2>
+      <p class="cta-banner__sub">Same-week appointments available. Direct billing for most insurance plans.</p>
+      <div class="cta-banner__actions">
+        <a href="https://fuelclinic.janeapp.com/" target="_blank" rel="noopener" class="btn btn-primary btn-lg">Book Online</a>
+        <a href="services.html" class="btn btn-outline btn-lg">View All Services</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════ FOOTER ═══════════════════════ -->
+<footer class="footer">
+  <div class="footer__accent"></div>
+  <div class="footer__main"><div class="container"><div class="footer__grid">
+    <div>
+      <img src="https://static.wixstatic.com/media/e4df87_4ca2544e8f144872b6ad0c237ffa1372~mv2.png/v1/fill/w_400,h_200,al_c,q_85,enc_avif,quality_auto/fuel_logo.png" alt="FUEL" class="footer__logo" loading="lazy">
+      <div class="footer__tagline">Function Uniting Energy &amp; Life</div>
+      <p class="footer__desc">Edmonton's award-winning interdisciplinary pain &amp; injury recovery clinic.</p>
+      <div class="footer__social">
+        <a href="https://www.facebook.com/FuelRecoveryClinicLtd/" target="_blank" rel="noopener" class="footer__social-link"><img src="https://static.wixstatic.com/media/11062b_f4e3e7f537ff4762a1914aa14e3e36b9~mv2.png" alt="Facebook" loading="lazy"></a>
+        <a href="https://www.instagram.com/fuelclinicedmonton/" target="_blank" rel="noopener" class="footer__social-link"><img src="https://static.wixstatic.com/media/11062b_603340b7bcb14e7785c7b65b233cd9f9~mv2.png" alt="Instagram" loading="lazy"></a>
+      </div>
+    </div>
+    <div><div class="footer__h">Services</div><ul class="footer__links"><li><a href="services/manual-osteopathy-edmonton.html" class="footer__link">Manual Osteopathy</a></li><li><a href="services/chiropractic-care.html" class="footer__link">Chiropractic Care</a></li><li><a href="services/massage-therapy-downtown-edmonton.html" class="footer__link">Massage Therapy</a></li><li><a href="services/chinese-medicine-acupuncture-edmonton.html" class="footer__link">Acupuncture</a></li><li><a href="services/psychology-services-edmonton.html" class="footer__link">Psychology</a></li><li><a href="services/mva.html" class="footer__link">MVA Services</a></li></ul></div>
+    <div><div class="footer__h">Clinic</div><ul class="footer__links"><li><a href="about.html" class="footer__link">About FUEL</a></li><li><a href="team.html" class="footer__link">Our Team</a></li><li><a href="careers.html" class="footer__link">Careers</a></li><li><a href="blog.html" class="footer__link">Blog</a></li><li><a href="contact.html" class="footer__link">Contact</a></li></ul></div>
+    <div><div class="footer__h">Contact</div><div class="footer__contact-row">📍 #104 – 10350 124 St NW<br>Edmonton, AB T5N 3V9</div><div class="footer__contact-row">📞 <a href="tel:7807055452">(780) 705-5452</a></div><div class="footer__contact-row">✉️ <a href="mailto:hello@fuelclinicedmonton.com">hello@fuelclinicedmonton.com</a></div><div style="font-size:.82rem;color:var(--muted);line-height:1.8;margin-top:.75rem">Mon–Thu: 9am–8pm<br>Fri: 9am–5pm<br>Sat: 10am–4pm</div></div>
+  </div></div></div>
+  <div class="footer__bottom"><div class="container"><div class="footer__bottom-inner"><span class="footer__copy">© 2026 FUEL Pain &amp; Injury Recovery Clinic Ltd.</span><span class="footer__mission">Function Uniting Energy &amp; Life</span></div></div></div>
+</footer>
+<script src="js/main.js"></script>
+
+<script src="js/chatbot.js"></script>
+</body>
+</html>

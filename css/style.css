@@ -137,8 +137,8 @@ p{line-height:1.75}
 
 /* ======================== AWARD ======================== */
 .award-section{background:linear-gradient(135deg,var(--dark-teal),var(--dark));padding:var(--sp-2xl) 0}
-.award-grid{display:grid;grid-template-columns:1fr 260px;gap:var(--sp-2xl);align-items:center}
-.award-img{width:100%;height:auto;border-radius:var(--r-lg);box-shadow:var(--sh-lg);object-fit:contain;display:block}
+.award-grid{display:grid;grid-template-columns:1fr 380px;gap:var(--sp-2xl);align-items:center}
+.award-img{width:100%;height:auto;border-radius:var(--r-lg);box-shadow:0 0 60px rgba(22,199,90,.15),var(--sh-lg);object-fit:contain;display:block}
 
 /* ======================== SERVICE CARDS ======================== */
 .services-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:1.5rem}
@@ -472,7 +472,7 @@ p{line-height:1.75}
   .service-sidebar{position:static}
   .contact-grid{grid-template-columns:1fr}
   .award-grid{grid-template-columns:1fr;text-align:center}
-  .award-img{margin:0 auto;max-width:220px}
+  .award-img{margin:0 auto;max-width:300px}
   .advantage-grid{grid-template-columns:repeat(2,1fr)}
 
   /* Footer */
@@ -494,7 +494,8 @@ p{line-height:1.75}
   /* ---- Nav ---- */
   .nav__menu,.nav__cta{display:none}
   .nav__hamburger{display:flex}
-  .nav__mobile-book{display:inline-flex;padding:.35rem .875rem;font-size:.72rem;margin-right:.5rem}
+  .nav__logo{margin-right:auto}
+  .nav__mobile-book{display:inline-flex;padding:.35rem .875rem;font-size:.72rem;margin-right:.625rem}
 
   /* ---- Typography ---- */
   h1,.h1{font-size:clamp(1.9rem,7vw,2.8rem)}
@@ -535,7 +536,7 @@ p{line-height:1.75}
 
   /* ---- Award ---- */
   .award-section{padding:var(--sp-xl) 0}
-  .award-img{max-width:180px}
+  .award-img{max-width:240px}
 
   /* ---- CTA Banner ---- */
   .cta-banner{padding:var(--sp-xl) 0}

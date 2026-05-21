@@ -333,6 +333,30 @@ p{line-height:1.75}
 .lp-footer p{font-size:.8rem;color:var(--muted)}
 .lp-footer a:hover{color:var(--green)}
 
+/* ======================== RESPONSIVE GRID UTILITIES ======================== */
+/* Use these classes instead of inline style="display:grid..." */
+.grid-2col{display:grid;grid-template-columns:1fr 1fr;gap:var(--sp-lg);align-items:start}
+.grid-2col--wide{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center}
+.grid-3col{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+.grid-3col--stats{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1.5rem;text-align:center}
+.grid-4col{display:grid;grid-template-columns:repeat(4,1fr);gap:2rem;text-align:center}
+.grid-2col-service{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;align-items:start;margin-top:1rem}
+.grid-2col-cond{display:grid;grid-template-columns:1fr 1fr;gap:.5rem 2rem;margin-bottom:1.5rem}
+
+@media(max-width:1024px){
+  .grid-4col{grid-template-columns:repeat(2,1fr)}
+  .grid-2col--wide{gap:2.5rem}
+}
+@media(max-width:768px){
+  .grid-2col,.grid-2col--wide,.grid-3col,.grid-3col--stats,.grid-2col-service,.grid-2col-cond{grid-template-columns:1fr}
+  .grid-4col{grid-template-columns:repeat(2,1fr);gap:1.5rem}
+  .grid-2col--wide{gap:2rem}
+  .grid-3col--stats{gap:1rem}
+}
+@media(max-width:480px){
+  .grid-4col{grid-template-columns:1fr}
+}
+
 /* ======================== UTILITIES ======================== */
 .mt-sm{margin-top:var(--sp-sm)}.mt-md{margin-top:var(--sp-md)}.mt-lg{margin-top:var(--sp-lg)}.mt-xl{margin-top:var(--sp-xl)}
 .mb-sm{margin-bottom:var(--sp-sm)}.mb-md{margin-bottom:var(--sp-md)}.mb-lg{margin-bottom:var(--sp-lg)}.mb-xl{margin-bottom:var(--sp-xl)}
@@ -347,36 +371,168 @@ p{line-height:1.75}
 @keyframes scrollBounce{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(8px)}}
 
 /* ======================== RESPONSIVE ======================== */
+
+/* ---- 1024px: tablets, small laptops ---- */
 @media(max-width:1024px){
+  /* Layout */
   .service-layout{grid-template-columns:1fr}
   .service-sidebar{position:static}
-  .footer__grid{grid-template-columns:1fr 1fr}
   .contact-grid{grid-template-columns:1fr}
   .award-grid{grid-template-columns:1fr;text-align:center}
-  .award-img{margin:0 auto}
+  .award-img{margin:0 auto;width:220px}
+  .advantage-grid{grid-template-columns:repeat(2,1fr)}
+
+  /* Footer */
+  .footer__grid{grid-template-columns:1fr 1fr}
+
+  /* LP */
   .lp-hero__grid{grid-template-columns:1fr}
+  .lp-form-card{max-width:560px;margin:0 auto}
+
+  /* Stats */
   .stat-trio{grid-template-columns:repeat(3,1fr)}
+  .hero__stats{gap:var(--sp-lg)}
 }
+
+/* ---- 768px: most phones in landscape, small tablets ---- */
 @media(max-width:768px){
   :root{--nav-h:68px}
+
+  /* ---- Nav ---- */
   .nav__menu,.nav__cta{display:none}
   .nav__hamburger{display:flex}
+
+  /* ---- Typography ---- */
+  h1,.h1{font-size:clamp(1.9rem,7vw,2.8rem)}
+  h2,.h2{font-size:clamp(1.45rem,5vw,2rem)}
+  h3,.h3{font-size:clamp(1.05rem,3.5vw,1.3rem)}
+  .hero__title{font-size:clamp(2rem,8vw,3.2rem)}
+
+  /* ---- Sections ---- */
+  .section{padding:var(--sp-xl) 0}
+  .section--sm{padding:var(--sp-lg) 0}
+
+  /* ---- Hero ---- */
+  .hero{min-height:auto;padding:calc(var(--nav-h) + 2.5rem) 0 3.5rem}
+  .hero__badge{font-size:.64rem;padding:.4rem .85rem}
+  .hero__subtitle{font-size:.95rem}
+  .hero__actions{flex-direction:column;align-items:flex-start;gap:.75rem}
+  .hero__actions .btn{width:100%;justify-content:center}
+  .hero__stats{gap:var(--sp-md);flex-wrap:wrap}
+  .hero__stat-num{font-size:1.6rem}
+  .hero__scroll{display:none}
+
+  /* ---- Page Hero ---- */
+  .page-hero{padding:calc(var(--nav-h) + 2rem) 0 2.5rem}
+  .breadcrumb{font-size:.64rem;flex-wrap:wrap}
+
+  /* ---- Grids ---- */
   .advantage-grid,.steps-grid{grid-template-columns:1fr}
   .steps-connector{display:none}
   .footer__grid{grid-template-columns:1fr}
   .form-row{grid-template-columns:1fr}
-  .cta-banner__actions{flex-direction:column;align-items:center}
-  .hero__actions{flex-direction:column;align-items:flex-start}
-  .section{padding:var(--sp-xl) 0}
+  .blog-grid{grid-template-columns:1fr}
+  .team-grid{grid-template-columns:repeat(2,1fr)}
+
+  /* ---- Service page ---- */
+  .service-body .benefit-grid{grid-template-columns:1fr}
   .stat-trio{grid-template-columns:1fr 1fr}
+  .stat-box__num{font-size:1.5rem}
+
+  /* ---- Award ---- */
+  .award-section{padding:var(--sp-xl) 0}
+  .award-img{width:180px}
+
+  /* ---- CTA Banner ---- */
+  .cta-banner{padding:var(--sp-xl) 0}
+  .cta-banner__actions{flex-direction:column;align-items:center}
+  .cta-banner__actions .btn{width:100%;max-width:320px;justify-content:center}
+
+  /* ---- Contact ---- */
+  .contact-form-card{padding:var(--sp-md)}
+
+  /* ---- Footer ---- */
+  .footer__main{padding:var(--sp-xl) 0}
+  .footer__bottom-inner{flex-direction:column;text-align:center;gap:.5rem}
+  .footer__copy{font-size:.72rem}
+
+  /* ---- LP Pages ---- */
+  .lp-header__inner{padding:0 1rem}
+  .lp-logo{height:36px}
+  .lp-phone-link{font-size:.9rem}
+  .lp-hero{padding:2.5rem 0 2rem}
+  .lp-hero__grid{gap:var(--sp-lg)}
+  .lp-form-card{padding:1.5rem;max-width:100%}
+  .lp-trust-items{gap:.875rem;justify-content:flex-start}
+  .lp-trust-item{font-size:.75rem}
+  .lp-footer p{font-size:.72rem}
+
+  /* ---- Buttons ---- */
+  .btn-lg{padding:.95rem 1.75rem;font-size:.82rem}
 }
+
+/* ---- 480px: phones portrait ---- */
 @media(max-width:480px){
+  /* ---- Layout ---- */
   .container{padding:0 1rem}
   .nav__inner{padding:0 1rem}
+
+  /* ---- Type ---- */
+  .hero__title{font-size:clamp(1.8rem,9vw,2.5rem);letter-spacing:-.02em}
+  .hero__title-accent{display:inline}
+
+  /* ---- Grids ---- */
   .services-grid{grid-template-columns:1fr}
   .team-grid{grid-template-columns:1fr 1fr}
   .stat-trio{grid-template-columns:1fr}
+  .advantage-grid{grid-template-columns:1fr}
+
+  /* ---- Service cards ---- */
+  .service-card__img-wrap{height:185px}
+
+  /* ---- Hero stats ---- */
+  .hero__stats{display:grid;grid-template-columns:1fr 1fr;gap:.875rem}
+
+  /* ---- LP ---- */
+  .lp-hero{padding:2rem 0 1.75rem}
+  .lp-form-card{padding:1.25rem}
+  .lp-trust-items{flex-direction:column;align-items:flex-start;gap:.625rem}
+
+  /* ---- Buttons ---- */
+  .btn{white-space:normal;text-align:center}
+  .hero__actions .btn,.cta-banner__actions .btn{max-width:100%}
+
+  /* ---- Contact form ---- */
+  .contact-form-card{padding:1.25rem}
+  .contact-form-card .btn-primary{width:100%;justify-content:center}
+
+  /* ---- Footer ---- */
+  .footer__copy{font-size:.68rem}
+  .footer__mission{display:none}
+
+  /* ---- FAQ ---- */
+  .faq-q{padding:1rem 1.1rem;font-size:.82rem}
+  .faq-a{padding:0 1.1rem}
+  .faq-item.active .faq-a{padding:0 1.1rem 1rem}
+
+  /* ---- CTA banner ---- */
+  .cta-banner__title{font-size:clamp(1.3rem,6vw,1.8rem)}
+  .cta-banner__sub{font-size:.9rem}
+
+  /* ---- Testimonial ---- */
+  .testimonial-quote{font-size:.95rem}
+
+  /* ---- Sidebar ---- */
+  .sidebar-card{padding:1.25rem}
 }
+
+/* ---- 360px: very small phones ---- */
 @media(max-width:360px){
   .team-grid{grid-template-columns:1fr}
+  .hero__stats{grid-template-columns:1fr}
+  .hero__title{font-size:1.75rem}
+  h2,.h2{font-size:1.3rem}
+  .container{padding:0 .875rem}
+  .lp-form-card{padding:1rem}
+  .btn{padding:.8rem 1.25rem;font-size:.76rem}
 }

@@ -95,8 +95,10 @@ p{line-height:1.75}
 .nav__link::after{content:'';position:absolute;bottom:-2px;left:0;width:0;height:2px;background:var(--green);transition:var(--ease)}
 .nav__link:hover{color:var(--green)}
 .nav__link:hover::after{width:100%}
-.nav__dropdown{position:absolute;top:calc(100% + 1rem);left:50%;transform:translateX(-50%) translateY(-8px);min-width:250px;background:var(--dark);border:1px solid var(--border);border-radius:var(--r-md);padding:.625rem 0;opacity:0;visibility:hidden;transition:var(--ease);box-shadow:var(--sh-lg)}
-.nav__item:hover .nav__dropdown{opacity:1;visibility:visible;transform:translateX(-50%) translateY(0)}
+.nav__dropdown{position:absolute;top:calc(100% + 4px);left:50%;transform:translateX(-50%) translateY(-8px);min-width:260px;background:var(--dark);border:1px solid var(--border);border-radius:var(--r-md);padding:.625rem 0;opacity:0;visibility:hidden;transition:var(--ease);box-shadow:var(--sh-lg);z-index:1001}
+/* Bridge the gap so hover isn't lost moving mouse from link → dropdown */
+.nav__dropdown::before{content:'';position:absolute;top:-1rem;left:0;right:0;height:1rem}
+.nav__item:hover .nav__dropdown,.nav__item.dd-open .nav__dropdown{opacity:1;visibility:visible;transform:translateX(-50%) translateY(0)}
 .nav__dropdown-link{display:block;padding:.6rem 1.25rem;font-family:var(--font-h);font-size:.74rem;font-weight:500;color:rgba(255,255,255,.8);text-transform:uppercase;letter-spacing:.05em;transition:var(--ease)}
 .nav__dropdown-link:hover{color:var(--green);background:rgba(22,199,90,.08);padding-left:1.6rem}
 .nav__cta{margin-left:var(--sp-sm)}
@@ -369,6 +371,96 @@ p{line-height:1.75}
 /* ======================== ANIMATIONS ======================== */
 @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(.8)}}
 @keyframes scrollBounce{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(8px)}}
+@keyframes gradientDrift{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
+@keyframes shimmer{0%{left:-120%}100%{left:140%}}
+@keyframes glowPulse{0%,100%{box-shadow:0 0 0 0 rgba(22,199,90,.5)}70%{box-shadow:0 0 0 12px rgba(22,199,90,0)}}
+@keyframes ringPulse{0%{transform:scale(1);opacity:.8}100%{transform:scale(2.2);opacity:0}}
+@keyframes floatUp{0%{opacity:0;transform:translateY(10px)}100%{opacity:1;transform:translateY(0)}}
+@keyframes borderGlow{0%,100%{border-color:rgba(22,199,90,.25)}50%{border-color:rgba(22,199,90,.65)}}
+
+/* ======================== DESIGN ENHANCEMENTS ======================== */
+
+/* ── Active nav link ── */
+.nav__link.active{color:var(--green)}
+.nav__link.active::after{width:100%!important}
+
+/* ── Button shimmer ── */
+.btn{position:relative;overflow:hidden}
+.btn::before{content:'';position:absolute;top:0;left:-120%;width:55%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.13),transparent);transform:skewX(-20deg);transition:left 0s}
+.btn:hover::before{animation:shimmer .55s ease forwards}
+.btn-primary:hover{animation:glowPulse .6s ease}
+
+/* ── Label tag glow ── */
+.label-tag{text-shadow:0 0 18px rgba(22,199,90,.3)}
+.label-tag::before{box-shadow:0 0 10px rgba(22,199,90,.45),inset 0 0 4px rgba(22,199,90,.2)}
+
+/* ── Service cards ── */
+.service-card::after{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent,var(--green),transparent);opacity:0;transition:opacity .4s}
+.service-card:hover::after{opacity:1}
+
+/* ── Team card ── */
+.team-card__img-wrap::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,transparent 50%,rgba(8,13,12,.7) 100%);opacity:0;transition:opacity .4s}
+.team-card:hover .team-card__img-wrap::after{opacity:1}
+.team-card__img-wrap{position:relative}
+
+/* ── Step icons ── */
+.step-card:hover .step-card__icon{border-color:rgba(22,199,90,.55);box-shadow:0 0 22px rgba(22,199,90,.22);transform:translateY(-3px)}
+.step-card__icon{transition:var(--ease),transform .3s}
+
+/* ── Advantage cards ── */
+.advantage-card{transition:var(--ease),transform .3s}
+.advantage-card:hover{transform:translateY(-5px)}
+
+/* ── Stat numbers glow ── */
+.hero__stat-num,.stat-box__num{text-shadow:0 0 28px rgba(22,199,90,.4)}
+
+/* ── Hero animated background ── */
+.hero__bg{background-size:200% 200%;animation:gradientDrift 12s ease-in-out infinite}
+
+/* ── Hero grid lines subtle pulse ── */
+.hero__grid-lines{animation:borderGlow 4s ease-in-out infinite}
+
+/* ── CTA banner radial overlay ── */
+.cta-banner::after{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:radial-gradient(ellipse at 70% 50%,rgba(22,199,90,.06) 0%,transparent 55%);pointer-events:none;animation:gradientDrift 10s ease-in-out infinite}
+
+/* ── Sidebar cards ── */
+.sidebar-cta{animation:borderGlow 3s ease-in-out infinite}
+
+/* ── Hero badge animated dot ── */
+.hero__badge-dot{box-shadow:0 0 0 0 rgba(22,199,90,.5);animation:glowPulse 2s ease-in-out infinite}
+
+/* ── Section header label — staggered reveal ── */
+.text-center .label-tag{animation:floatUp .5s ease both}
+.text-center h2{animation:floatUp .5s ease .1s both}
+
+/* ── Blog cards ── */
+.blog-card::after{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent,var(--green),transparent);opacity:0;transition:opacity .4s}
+.blog-card:hover::after{opacity:1}
+.blog-card{position:relative}
+
+/* ── Footer link arrow nudge ── */
+.footer__link:hover{gap:.6rem}
+
+/* ── LP form card border pulse ── */
+.lp-form-card{position:relative}
+.lp-form-card::before{content:'';position:absolute;inset:-1px;border-radius:var(--r-lg);background:linear-gradient(135deg,rgba(22,199,90,.3),rgba(14,122,118,.15),transparent);z-index:-1;opacity:0;transition:opacity .4s}
+.lp-form-card:focus-within::before{opacity:1}
+
+/* ── Chatbot pulse ring ── */
+#fchat-ring{position:fixed;bottom:1.5rem;right:1.5rem;width:56px;height:56px;border-radius:50%;border:2px solid rgba(22,199,90,.6);z-index:9998;animation:ringPulse 2s ease-out infinite;pointer-events:none}
+#fchat-ring2{position:fixed;bottom:1.5rem;right:1.5rem;width:56px;height:56px;border-radius:50%;border:2px solid rgba(22,199,90,.4);z-index:9997;animation:ringPulse 2s ease-out .6s infinite;pointer-events:none}
+
+/* ── Testimonial quote mark ── */
+.testimonial-section{position:relative;overflow:hidden}
+.testimonial-section::before{content:'"';position:absolute;top:-2rem;left:50%;transform:translateX(-50%);font-family:Georgia,serif;font-size:22rem;color:rgba(22,199,90,.03);line-height:1;pointer-events:none;user-select:none}
+
+/* ── LP trust bar item hover ── */
+.lp-trust-item{transition:var(--ease)}
+.lp-trust-item:hover{color:var(--white)}
+.lp-trust-item:hover .lp-trust-item__icon{text-shadow:0 0 12px rgba(22,199,90,.7)}
+
+/* ── Gradient section divider ── */
+.section-divider{height:1px;background:linear-gradient(90deg,transparent,var(--border),transparent);margin:0}
 
 /* ======================== RESPONSIVE ======================== */
 

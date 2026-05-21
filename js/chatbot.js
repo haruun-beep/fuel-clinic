@@ -240,6 +240,11 @@
       </div>
     `;
 
+    // Pulse rings (matched to CSS #fchat-ring / #fchat-ring2)
+    const ring  = document.createElement('div'); ring.id  = 'fchat-ring';
+    const ring2 = document.createElement('div'); ring2.id = 'fchat-ring2';
+    document.body.appendChild(ring);
+    document.body.appendChild(ring2);
     document.body.appendChild(btn);
     document.body.appendChild(win);
 
@@ -302,16 +307,22 @@
     // Greet
     botMsg(`👋 Hi! I'm the FUEL Clinic assistant. I can answer questions about our <strong>services, team, booking, insurance, and location</strong>.<br><br>What can I help you with?`);
 
+    function setRings(visible) {
+      [ring, ring2].forEach(r => r.style.display = visible ? 'block' : 'none');
+    }
+
     // Events
     btn.addEventListener('click', () => {
       const open = win.classList.toggle('open');
       btn.innerHTML = open ? '✕' : '💬';
       btn.style.fontSize = open ? '1rem' : '1.5rem';
+      setRings(!open);
       if (open) setTimeout(() => input.focus(), 100);
     });
     win.querySelector('.fch-x').addEventListener('click', () => {
       win.classList.remove('open');
       btn.innerHTML = '💬'; btn.style.fontSize = '1.5rem';
+      setRings(true);
     });
     win.querySelector('#fchat-go').addEventListener('click', send);
     input.addEventListener('keydown', e => { if (e.key === 'Enter') send(); });

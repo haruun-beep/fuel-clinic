@@ -111,4 +111,61 @@
     if (href && path.endsWith(href) && href !== '/') a.classList.add('active');
   });
 
+  // ── Dropdown — click/touch support (belt-and-suspenders) ─
+  document.querySelectorAll('.nav__item').forEach(item => {
+    const dropdown = item.querySelector('.nav__dropdown');
+    if (!dropdown) return;
+    const link = item.querySelector('.nav__link');
+
+    // On desktop: click toggles; CSS :hover still works
+    link && link.addEventListener('click', e => {
+      if (window.innerWidth <= 768) return; // mobile uses overlay
+      const isOpen = item.classList.contains('dd-open');
+      // Close all others
+      document.querySelectorAll('.nav__item.dd-open').forEach(el => el.classList.remove('dd-open'));
+      if (!isOpen) {
+        e.preventDefault();
+        item.classList.add('dd-open');
+      }
+    });
+  });
+
+  // Close dropdown on outside click
+  document.addEventListener('click', e => {
+    if (!e.target.closest('.nav__item')) {
+      document.querySelectorAll('.nav__item.dd-open').forEach(el => el.classList.remove('dd-open'));
+    }
+  });
+
+  // Close dropdown on Escape
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') document.querySelectorAll('.nav__item.dd-open').forEach(el => el.classList.remove('dd-open'));
+  });
+
+  // ── Animated counters ─────────────────────────────────────
+  const counterEls = document.querySelectorAll('[data-count]');
+  if (counterEls.length && 'IntersectionObserver' in window) {
+    const cio = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (!e.isIntersecting) return;
+        const el = e.target;
+        const target = parseFloat(el.dataset.count);
+        const isDecimal = el.dataset.count.includes('.');
+        const duration = 1600;
+        const start = performance.now();
+        const tick = now => {
+          const p = Math.min((now - start) / duration, 1);
+          const ease = 1 - Math.pow(1 - p, 3); // ease-out-cubic
+          const val = ease * target;
+          el.textContent = isDecimal ? val.toFixed(1) : Math.floor(val);
+          if (p < 1) requestAnimationFrame(tick);
+          else el.textContent = isDecimal ? target.toFixed(1) : target;
+        };
+        requestAnimationFrame(tick);
+        cio.unobserve(el);
+      });
+    }, { threshold: 0.4 });
+    counterEls.forEach(el => cio.observe(el));
+  }
+
 })();

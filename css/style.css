@@ -69,8 +69,8 @@ p{line-height:1.75}
 .bg-dark{background:var(--dark)}
 .bg-black{background:var(--black)}
 .bg-teal{background:linear-gradient(135deg,var(--dark-teal),var(--dark))}
-.bg-light{background:var(--off-white);color:var(--black)}
-.bg-light-alt{background:var(--light-bg);color:var(--black)}
+.bg-light{background:linear-gradient(180deg,#0e2826,#0b2220);color:var(--white)}
+.bg-light-alt{background:linear-gradient(180deg,#0a1e1c,#091917);color:var(--white)}
 
 /* ======================== BUTTONS ======================== */
 .btn{display:inline-flex;align-items:center;gap:.5rem;padding:.875rem 1.75rem;border-radius:var(--r-sm);font-family:var(--font-h);font-size:.82rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;transition:var(--ease);border:2px solid transparent;white-space:nowrap}
@@ -143,7 +143,7 @@ p{line-height:1.75}
 .services-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:1.5rem}
 .service-card{position:relative;border-radius:var(--r-md);overflow:hidden;background:var(--dark);border:1px solid var(--border);transition:var(--ease)}
 .service-card:hover{transform:translateY(-6px);border-color:rgba(22,199,90,.5);box-shadow:0 20px 60px rgba(0,0,0,.5),0 0 0 1px rgba(22,199,90,.18)}
-.service-card__img-wrap{overflow:hidden;height:220px}
+.service-card__img-wrap{overflow:hidden;height:auto;aspect-ratio:16/9}
 .service-card__img{width:100%;height:100%;object-fit:cover;transition:transform .6s cubic-bezier(.4,0,.2,1)}
 .service-card:hover .service-card__img{transform:scale(1.06)}
 .service-card__body{padding:1.5rem}
@@ -209,7 +209,7 @@ p{line-height:1.75}
 .team-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(255px,1fr));gap:1.5rem}
 .team-card{background:var(--dark);border:1px solid var(--border);border-radius:var(--r-md);overflow:hidden;transition:var(--ease)}
 .team-card:hover{transform:translateY(-6px);border-color:rgba(22,199,90,.4);box-shadow:var(--sh-lg)}
-.team-card__img-wrap{overflow:hidden;height:300px}
+.team-card__img-wrap{overflow:hidden;height:auto;aspect-ratio:4/5}
 .team-card__img{width:100%;height:100%;object-fit:cover;object-position:top center;transition:transform .5s ease}
 .team-card:hover .team-card__img{transform:scale(1.04)}
 .team-card__body{padding:1.4rem}
@@ -580,7 +580,7 @@ p{line-height:1.75}
   .advantage-grid{grid-template-columns:1fr}
 
   /* ---- Service cards ---- */
-  .service-card__img-wrap{height:185px}
+  .service-card__img-wrap{height:auto}
 
   /* ---- Hero stats ---- */
   .hero__stats{display:grid;grid-template-columns:1fr 1fr;gap:.875rem}
@@ -627,4 +627,71 @@ p{line-height:1.75}
   .container{padding:0 .875rem}
   .lp-form-card{padding:1rem}
   .btn{padding:.8rem 1.25rem;font-size:.76rem}
+}
+
+/* ======================== SECTION DEPTH + CONTRAST FIXES ======================== */
+
+/* ── Photo sizing — force image fill within aspect-ratio containers ── */
+.service-card__img{width:100%;height:100%;object-fit:cover;display:block}
+.team-card__img{width:100%;height:100%;object-fit:cover;object-position:top center;display:block}
+
+/* ── Award image ── */
+.award-img{width:100%;max-width:320px;height:auto;object-fit:contain}
+
+/* ── Subtle section depth — inset shadow at top creates perceived separation ── */
+.section,.section--sm,.award-section,.testimonial-section,.cta-banner,.lp-hero{
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.04),inset 0 -1px 0 rgba(0,0,0,.25)
+}
+
+/* ── bg-light is now dark — override ALL inline light-text styles ── */
+/* headings */
+.bg-light h1,.bg-light h2,.bg-light h3,.bg-light h4{color:var(--white)!important}
+.bg-light h2 span{color:var(--green)!important}
+/* body copy */
+.bg-light p{color:rgba(255,255,255,.72)!important}
+/* label-tags */
+.bg-light .label-tag{color:var(--green)!important}
+.bg-light .label-tag::before{background:var(--green)!important}
+/* manually-rendered label bar spans */
+.bg-light .label-tag span[style]{background:var(--green)!important;color:var(--green)!important}
+/* advantage cards — was light-bg cards, now dark */
+.bg-light .advantage-card{background:rgba(255,255,255,.03)!important;border-color:rgba(255,255,255,.07)!important}
+.bg-light .advantage-card:hover{background:rgba(22,199,90,.07)!important;border-color:rgba(22,199,90,.22)!important}
+.bg-light .advantage-card__title{color:var(--white)!important}
+.bg-light .advantage-card__text{color:var(--muted)!important}
+/* white treatment cards in about.html → dark teal cards */
+.bg-light [style*="background:var(--white)"]{background:rgba(22,199,90,.06)!important;border-color:var(--border)!important;box-shadow:var(--sh-md)!important}
+.bg-light [style*="background:var(--white)"] h3{color:var(--white)!important}
+.bg-light [style*="background:var(--white)"] p{color:var(--muted)!important}
+/* icon boxes in treatment cards */
+.bg-light [style*="background:rgba(12,50,50,.08)"]{background:rgba(22,199,90,.1)!important;border-radius:12px}
+/* p text overrides from about.html */
+.bg-light [style*="color:rgba(0,0,0,.55)"]{color:var(--muted)!important}
+
+/* ── bg-light-alt is now dark — override ALL inline light-text styles ── */
+.bg-light-alt h1,.bg-light-alt h2,.bg-light-alt h3,.bg-light-alt h4{color:var(--white)!important}
+.bg-light-alt p{color:rgba(255,255,255,.72)!important}
+.bg-light-alt .label-tag{color:var(--green)!important}
+.bg-light-alt .label-tag::before{background:var(--green)!important}
+.bg-light-alt .step-card__title{color:var(--white)!important}
+.bg-light-alt .step-card__text{color:var(--muted)!important}
+.bg-light-alt .step-card__num{color:var(--green)!important}
+/* step icon circles keep green tint */
+.bg-light-alt .step-card__icon{background:rgba(22,199,90,.08)!important;border-color:rgba(22,199,90,.2)!important}
+/* step icon images — keep green tint filter */
+.bg-light-alt .step-card__icon img{filter:brightness(0) saturate(100%) invert(61%) sepia(83%) saturate(377%) hue-rotate(93deg) brightness(97%) contrast(93%)!important}
+/* steps-connector line */
+.bg-light-alt .steps-connector{background:linear-gradient(90deg,transparent,rgba(22,199,90,.35),transparent)!important}
+
+/* ── Global step-card defaults (used on any bg) ── */
+.step-card__title{color:var(--white)}
+.step-card__text{color:var(--muted)}
+
+/* ── Section label-tags on teal/gradient bg ── */
+.bg-teal .label-tag::before{background:var(--green)}
+
+/* ── Responsive fixes for aspect-ratio photos ── */
+@media(max-width:480px){
+  .service-card__img-wrap{aspect-ratio:4/3}
+  .team-card__img-wrap{aspect-ratio:3/4}
 }

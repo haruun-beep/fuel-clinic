@@ -11,6 +11,20 @@
     onScroll();
   }
 
+  // ── Mobile nav book button (injected so we only need it in one place) ────
+  const navInner = document.querySelector('.nav__inner');
+  if (navInner) {
+    const mobileBook = document.createElement('a');
+    // Build absolute booking URL regardless of page depth
+    mobileBook.href = 'https://fuelclinic.janeapp.com/';
+    mobileBook.target = '_blank';
+    mobileBook.rel = 'noopener';
+    mobileBook.className = 'btn btn-primary nav__mobile-book';
+    mobileBook.textContent = 'Book Now';
+    const burger = navInner.querySelector('.nav__hamburger');
+    if (burger) navInner.insertBefore(mobileBook, burger);
+  }
+
   // ── Mobile hamburger ──────────────────────────────────────
   const hamburger = document.querySelector('.nav__hamburger');
   const mobileOverlay = document.querySelector('.nav__mobile-overlay');

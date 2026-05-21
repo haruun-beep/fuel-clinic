@@ -695,3 +695,137 @@ p{line-height:1.75}
   .service-card__img-wrap{aspect-ratio:4/3}
   .team-card__img-wrap{aspect-ratio:3/4}
 }
+
+/* ── Practitioner Row (team page editorial layout) ─────────── */
+.practitioner-row{
+  display:grid;
+  grid-template-columns:380px 1fr;
+  gap:3.5rem;
+  align-items:start;
+  padding:4rem 0;
+  border-bottom:1px solid var(--border);
+}
+.practitioner-row:last-child{border-bottom:none}
+.practitioner-row--flip{grid-template-columns:1fr 380px}
+.practitioner-row--flip .practitioner-photo{order:2}
+.practitioner-row--flip .practitioner-info{order:1}
+.practitioner-photo img{
+  width:100%;
+  border-radius:20px;
+  aspect-ratio:3/4;
+  object-fit:cover;
+  object-position:top center;
+  display:block;
+  box-shadow:0 24px 64px rgba(0,0,0,.55);
+}
+.practitioner-name{
+  font-family:var(--font-h);
+  font-size:2.2rem;
+  font-weight:800;
+  color:var(--white);
+  margin:.75rem 0 .25rem;
+  line-height:1.1;
+}
+.practitioner-role{
+  color:var(--green);
+  font-weight:700;
+  font-size:1rem;
+  margin-bottom:.375rem;
+  font-family:var(--font-h);
+  letter-spacing:.02em;
+}
+.practitioner-creds{
+  font-size:.72rem;
+  color:var(--muted);
+  font-family:var(--font-h);
+  font-weight:600;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+  margin-bottom:1.25rem;
+}
+.practitioner-bio{
+  color:rgba(255,255,255,.72);
+  line-height:1.85;
+  font-size:.95rem;
+}
+.practitioner-tag{
+  display:inline-block;
+  background:rgba(22,199,90,.08);
+  border:1px solid rgba(22,199,90,.2);
+  color:var(--green);
+  padding:.3rem .85rem;
+  border-radius:20px;
+  font-size:.72rem;
+  font-family:var(--font-h);
+  font-weight:700;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  margin:.2rem .2rem .2rem 0;
+}
+@media(max-width:900px){
+  .practitioner-row,.practitioner-row--flip{
+    grid-template-columns:1fr;
+    gap:2rem;
+  }
+  .practitioner-row--flip .practitioner-photo{order:0}
+  .practitioner-row--flip .practitioner-info{order:0}
+  .practitioner-photo img{aspect-ratio:4/5;max-width:400px;margin:0 auto}
+  .practitioner-name{font-size:1.8rem}
+}
+@media(max-width:480px){
+  .practitioner-row{padding:2.5rem 0}
+  .practitioner-name{font-size:1.5rem}
+  .practitioner-photo img{max-width:100%;aspect-ratio:3/4}
+}
+
+/* ── Practitioner Profile card (service pages) ──────────────── */
+.practitioner-profile{
+  display:grid;
+  grid-template-columns:200px 1fr;
+  gap:1.75rem;
+  align-items:start;
+  background:rgba(22,199,90,.04);
+  border:1px solid var(--border);
+  border-radius:16px;
+  padding:1.5rem;
+  margin-bottom:1.5rem;
+}
+.practitioner-profile__img img{
+  width:100%;
+  border-radius:12px;
+  aspect-ratio:3/4;
+  object-fit:cover;
+  object-position:top center;
+  display:block;
+}
+.practitioner-profile__text h3{
+  font-size:1.15rem;
+  color:var(--white);
+  margin-bottom:.2rem;
+}
+.practitioner-profile__role{
+  color:var(--green);
+  font-size:.8rem;
+  font-family:var(--font-h);
+  font-weight:700;
+  letter-spacing:.06em;
+  margin-bottom:.3rem;
+}
+.practitioner-profile__creds{
+  font-size:.68rem;
+  color:var(--muted);
+  font-family:var(--font-h);
+  font-weight:600;
+  letter-spacing:.09em;
+  text-transform:uppercase;
+  margin-bottom:.75rem;
+}
+.practitioner-profile__bio{
+  font-size:.875rem;
+  color:rgba(255,255,255,.7);
+  line-height:1.75;
+}
+@media(max-width:640px){
+  .practitioner-profile{grid-template-columns:1fr;gap:1.25rem}
+  .practitioner-profile__img img{aspect-ratio:4/5;max-width:180px}
+}
